@@ -8,6 +8,7 @@ interface IHandleSwal {
   title?:        string;
   desc?:         string;
   ask?:          boolean;
+  callback?:     VoidFunction
 }
 
 /**
@@ -19,6 +20,7 @@ export const handleSwal = async ({
   title,
   desc,
   ask = true,
+  callback
 }: IHandleSwal) => {
   if (ask) {
     const { isConfirmed } = await Swal.fire({
@@ -73,5 +75,5 @@ export const handleSwal = async ({
     },
   });
   
-  navigate();
+  callback ? callback() : navigate();
 };

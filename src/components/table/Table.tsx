@@ -5,12 +5,13 @@ import { deleteUser } from '../../services/users';
 import { handleSwal } from '../../helpers/handleSwal';
 
 interface Props {
-  data?: IUser[];
-  page:  number;
-  limit: number;
+  data?:    IUser[];
+  page:     number;
+  limit:    number;
+  reFetch?: VoidFunction;
 }
 
-export const Table = ({ data, page, limit }: Props) => {
+export const Table = ({ data, page, limit, reFetch }: Props) => {
   const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
@@ -19,6 +20,7 @@ export const Table = ({ data, page, limit }: Props) => {
       navigate: () => navigate('/'), 
       title: 'Are you sure you want to delete the user?',
       desc: 'This action cannot be reversed.',
+      callback: reFetch
     });
   };
 

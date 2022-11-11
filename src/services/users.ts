@@ -47,6 +47,22 @@ export const getUser = async (id: string): Promise<IResponse<IUser>> => {
 
 export const postUser = async (data: IUser): Promise<IResponse<unknown>> => {
   try {
+    if (
+      handleIncompleteData(data, [
+        'street',
+        'suite',
+        'city',
+        'zipcode',
+        'website',
+        'lat',
+        'lng',
+        'companyName',
+        'catchPhrase',
+        'bs',
+      ])
+    )
+      return { code: 400, msg: 'Data Incompleta' };
+
     const response = await instance.post<IResponse<unknown>>('users', data);
 
     if (!response)
@@ -78,7 +94,7 @@ export const putUser = async (
         'bs',
       ])
     )
-      return { code: 500, msg: 'Data Incompleta' };
+      return { code: 400, msg: 'Data Incompleta' };
 
     const response = await instance.put<IResponse<unknown>>(
       `users/${id}`,

@@ -60,7 +60,7 @@ export const Home = () => {
           id='search_input'
         />
 
-        <Table data={users} page={page} limit={limit} />
+        <Table data={users} page={page} limit={limit} reFetch={reFetch} />
 
         <Pagination
           page={page}
